@@ -1,0 +1,52 @@
+<br/>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h3>Listagem de Produtos</h3>
+          <div class="direita">
+            <button type="button" class="btn btn-primary" mdbRipple routerLink="/admin/produtos/criar" >
+              Novo Produto
+            </button>
+          </div>
+          <br/>
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Nome</th>
+                  <th>Descrição</th>
+                  <th>Quantidade Disponível</th>
+                  <th>Valor Unitário</th>
+                  <th class="centro">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of produtos; track $index) {
+                  <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.nome}}</td>
+                    <td>{{item.nome}}</td>
+                    <td>{{item.nome}}</td>
+                    <td>{{item.nome}}</td>
+                    <td class="centro">
+                      <button type="button" class="btn btn-primary" mdbRipple routerLink="/admin/produtos/alterar/{{item.id}}" >
+                        Alterar
+                      </button>
+                      <button type="button" class="btn btn-danger" mdbRipple (click)="excluir()">
+                        Excluir
+                      </button>
+                    </td>
+
+
+
+                  </tr>
+                }
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
