@@ -1,1 +1,47 @@
-<p>produtosdetails works!</p>
+<br/>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
+          <h3>Cadastro de Produtos</h3>
+          <br>
+          <mdb-form-control>
+            <input mdbInput type="text" id="id" class="form-control" [(ngModel)]="produto.id" [readonly]="true"/>
+            <label mdbLabel class="form-label" for="id">Id</label>
+          </mdb-form-control>
+          <br>
+          <mdb-form-control>
+            <input mdbInput type="text" id="nome" class="form-control" [(ngModel)]="produto.nome" />
+            <label mdbLabel class="form-label" for="nome">Nome</label>
+          </mdb-form-control>
+          <br>
+          <mdb-form-control>
+            <input mdbInput type="text" id="descricao" class="form-control" [(ngModel)]="produto.descricao" />
+            <label mdbLabel class="form-label" for="descricao">Descrição</label>
+          </mdb-form-control>
+          <br>
+          <mdb-form-control>
+            <input mdbInput type="number" id="quantidadeDisponivel" class="form-control" [(ngModel)]="produto.quantidadeDisponivel" />
+            <label mdbLabel class="form-label" for="quantidadeDisponivel">Quantidade Disponível</label>
+          </mdb-form-control>
+          <br>
+          <mdb-form-control>
+            <input mdbInput type="number" id="valorUnitario" class="form-control" [(ngModel)]="produto.valorUnitario"  (ngModelChange)="formatarValor($event)"  />
+            <label mdbLabel class="form-label" for="valorUnitario">Valor Unitário</label>
+          </mdb-form-control>
+          <br>
+          <button type="button" class="btn btn-primary" mdbRipple  (click)="criar()" *ngIf="produto.id == null || produto.id == 0" >
+            Gravar
+          </button>
+          <button type="button" class="btn btn-primary" mdbRipple  (click)="alterar()" *ngIf="produto.id > 0" >
+            Alterar
+          </button>
+
+        </div>
+      </div>
+      <div class="col-lg-2"></div>
+    </div>
+  </div>
+</div>

@@ -18,23 +18,21 @@
                   <th>Nome</th>
                   <th>Descrição</th>
                   <th>Quantidade Disponível</th>
-                  <th>Valor Unitário</th>
                   <th class="centro">Ações</th>
                 </tr>
               </thead>
               <tbody>
-                @for (item of produtos; track $index) {
+                @for (produto of produtos; track $index) {
                   <tr>
-                    <td>{{item.id}}</td>
-                    <td>{{item.nome}}</td>
-                    <td>{{item.nome}}</td>
-                    <td>{{item.nome}}</td>
-                    <td>{{item.nome}}</td>
+                    <td>{{produto.id}}</td>
+                    <td>{{produto.nome}}</td>
+                    <td>{{produto.descricao}}</td>
+                    <td>{{produto.quantidadeDisponivel}}</td>
                     <td class="centro">
-                      <button type="button" class="btn btn-primary" mdbRipple routerLink="/admin/produtos/alterar/{{item.id}}" >
+                      <button type="button" class="btn btn-primary me-2" mdbRipple routerLink="/admin/produtos/alterar/{{produto.id}}" >
                         Alterar
                       </button>
-                      <button type="button" class="btn btn-danger" mdbRipple (click)="excluir()">
+                      <button type="button" class="btn btn-danger" mdbRipple (click)="excluir(produto)">
                         Excluir
                       </button>
                     </td>
