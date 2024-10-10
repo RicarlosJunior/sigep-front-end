@@ -32,13 +32,15 @@
             <label mdbLabel class="form-label" for="valorUnitario">Valor Unitário</label>
           </mdb-form-control>
           <br>
-          <button type="button" class="btn btn-primary" mdbRipple  (click)="criar()" *ngIf="produto.id == null || produto.id == 0" >
+          <button type="button" class="btn btn-primary me-2" mdbRipple  (click)="criar()" *ngIf="produto.id == null || produto.id == 0" >
             Gravar
           </button>
-          <button type="button" class="btn btn-primary" mdbRipple  (click)="alterar()" *ngIf="produto.id > 0" >
+          <button type="button" class="btn btn-primary me-2" mdbRipple  (click)="alterar()" *ngIf="produto.id > 0" >
             Alterar
           </button>
-
+          <button type="button" class="btn btn-primary" mdbRipple routerLink="/admin/produtos" >
+            Voltar
+          </button>
         </div>
       </div>
       <div class="col-lg-2"></div>

@@ -19,21 +19,6 @@ export class ProdutoslistComponent {
 
   constructor(){
     this.listar();
-/*
-    let produtoNovo = history.state.carroNovo;
-    let produtoEditado = history.state.carroEditado;
-
-    if (produtoNovo != null) {
-      this.produtos.push(produtoNovo);
-    }
-
-    if (produtoEditado != null) {
-      let indice = this.produtos.findIndex((p) => {
-        return p.id == produtoEditado.id;
-      });
-      this.produtos[indice] = produtoEditado;
-    }
-*/
   }
 
   listar(){
@@ -43,7 +28,7 @@ export class ProdutoslistComponent {
       },
       error: erro => {
         Swal.fire({
-          title: 'Ocorreu um erro',
+          title: 'Ocorreu um erro inesperado.',
           icon: 'error',
           confirmButtonText: 'Ok',
         });
@@ -72,8 +57,9 @@ export class ProdutoslistComponent {
             this.listar();
           },
           error: erro => {
+            const errorMessage = erro.error || 'Ocorreu um erro inesperado.';
             Swal.fire({
-              title: erro.error?.mensagem ||'Ocorreu um erro',
+              title: errorMessage,
               icon: 'error',
               confirmButtonText: 'Ok',
             });
