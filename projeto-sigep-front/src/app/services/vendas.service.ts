@@ -25,7 +25,7 @@ export class VendasService {
           id:venda.id,
           cliente: venda.cliente,
           valorTotal: venda.valor_total,
-          vendaProdutos: venda.venda_produtos
+          vendaProdutos: venda.venda_produtos,
         }))
     );
   }
@@ -49,7 +49,7 @@ export class VendasService {
             id:venda.id,
             cliente: venda.cliente,
             valorTotal: venda.valor_total,
-            vendaProdutos: venda.venda_produtos
+            vendaProdutos: venda.venda_produtos,
           }))
         )
       );
@@ -66,18 +66,39 @@ export class VendasService {
         id:venda.id,
         cliente: venda.cliente,
         valorTotal: venda.valor_total,
-        vendaProdutos: venda.venda_produtos
-        }))
+        vendaProdutos: venda.venda_produtos.map((vp: any) => ({
+            produto: {
+              id: vp.produto.id,
+              nome: vp.produto.nome,
+              descricao: vp.produto.descricao,
+              quantidadeDisponivel: vp.produto.quantidade_disponivel,
+              valorUnitario: vp.produto.valor_unitario,
+              },
+              quantidade: vp.quantidade,
+          }))
+      }))
     );
   }
+
 
   criarPayloadVenda(venda: any) {
     return {
       id: venda.id,
       cliente: venda.cliente,
       valor_total: venda.valorTotal,
+      venda_produtos: venda.vendaProdutos.map((vp: any) => ({
+        produto: {
+          id: vp.produto.id,
+          nome: vp.produto.nome,
+          descricao: vp.produto.descricao,
+          quantidade_disponivel: vp.produto.quantidadeDisponivel,
+          valor_unitario: vp.produto.valorUnitario,
+          },
+          quantidade: vp.quantidade,
+      }))
     };
   }
+
 
 
 }

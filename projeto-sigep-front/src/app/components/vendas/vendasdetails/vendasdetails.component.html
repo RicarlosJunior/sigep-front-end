@@ -32,14 +32,7 @@
             <h5>Itens</h5>
           </div>
 
-
-
-
-          <button type="button" class="btn btn-primary btn-sm" mdbRipple  (click)="abrirModal()" >
-            Novo Item
-          </button>
-          <br>
-          <table class="table table-striped">
+          <table class="table table-sm">
             <thead>
               <tr>
                 <th>Id</th>
@@ -50,6 +43,9 @@
               </tr>
             </thead>
             <tbody>
+              <tr *ngIf="venda.vendaProdutos.length === 0">
+                <td colspan="6" class="esquerda">Sem registros para exibir</td>
+              </tr>
               @for (vendaProduto of venda.vendaProdutos; track $index) {
                 <tr>
                   <td>{{vendaProduto.produto?.id}}</td>
@@ -66,15 +62,24 @@
             </tbody>
         </table>
         <br>
-          <button type="button" class="btn btn-primary me-2 btn-sm" mdbRipple  (click)="criar()" *ngIf="venda.id == null || venda.id == 0" >
-            Gravar
-          </button>
-          <button type="button" class="btn btn-primary me-2 btn-sm" mdbRipple  (click)="alterar()" *ngIf="venda.id > 0" >
-            Alterar
-          </button>
-          <button type="button" class="btn btn-primary btn-sm" mdbRipple routerLink="/admin/vendas" >
-            Voltar
-          </button>
+        <div class="row">
+          <div class="col-md-8">
+            <button type="button" class="btn btn-primary me-2 btn-sm" mdbRipple  (click)="criar()" *ngIf="venda.id == null || venda.id == 0" >
+              Gravar
+            </button>
+            <button type="button" class="btn btn-primary me-2 btn-sm" mdbRipple  (click)="alterar()" *ngIf="venda.id > 0" >
+              Alterar
+            </button>
+            <button type="button" class="btn btn-primary me-2 btn-sm" mdbRipple routerLink="/admin/vendas" >
+              Voltar
+            </button>
+          </div>
+          <div class="col-md-4 direita">
+            <button type="button" class="btn btn-primary  me-2 btn-sm" mdbRipple  (click)="abrirModal()" >
+              Novo Item
+            </button>
+          </div>
+        </div>
         </div>
       </div>
       <div class="col-lg-2"></div>
@@ -86,11 +91,11 @@
 <!--Modal de Itens (VendaProduto)-->
 <ng-template #modalVendaProduto>
   <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Selecione o produto</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Selecione um produto</h5>
   </div>
   <div class="modal-body">
     <select [(ngModel)]="vendaProduto.produto">
-      <option value="" disabled selected>Selecione um produto</option>
+      <option value="">Selecione...</option>
       <option *ngFor="let produto of produtos" [ngValue]="produto">
         {{ produto.nome }}
       </option>
@@ -98,7 +103,7 @@
     <br>
     <br>
     <mdb-form-control>
-      <input mdbInput type="number" id="quantidade" class="form-control" [(ngModel)]="vendaProduto.quantidade"  />
+      <input mdbInput type="number" id="quantidade" class="form-control" [(ngModel)]="vendaProduto.quantidade" min="0" step="1" />
       <label mdbLabel class="form-label" for="quantidade">Quantidade</label>
     </mdb-form-control>
     <br>

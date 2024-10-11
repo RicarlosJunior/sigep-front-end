@@ -11,7 +11,7 @@
             </button>
           </div>
           <br/>
-          <table class="table table-striped">
+          <table class="table table-sm">
               <thead>
                 <tr>
                   <th>Id</th>
@@ -22,6 +22,9 @@
                 </tr>
               </thead>
               <tbody>
+                <tr *ngIf="produtos.length === 0">
+                  <td colspan="5" class="esquerda">Sem registros para exibir</td>
+                </tr>
                 @for (produto of produtos; track $index) {
                   <tr>
                     <td>{{produto.id}}</td>

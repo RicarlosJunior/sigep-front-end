@@ -42,25 +42,68 @@ export class VendasdetailsComponent {
     if(id > 0){
       this.consultar(id);
     }
+    this.listarProdutos();
   }
 
   abrirModal() {
-    this.listarProdutos();
+    this.resetarVendaProduto();
     this.modalRef = this.modalService.open(this.modalVendaProduto);
-  }
-
-  adicionarVendaProduto() {
-    this.venda.vendaProdutos.push(this.vendaProduto);
-    this.fecharModal();
   }
 
   fecharModal() {
     this.modalRef.close();
   }
 
+  resetarVendaProduto() {
+    this.vendaProduto = new VendaProduto();
+  }
+
+
+  adicionarVendaProduto() {
+    const produtoJaAdicionado = this.venda.vendaProdutos.some(vp => vp.produto?.id === this.vendaProduto.produto?.id);
+    if(produtoJaAdicionado){
+      Swal.fire({
+        title: 'Produto já adicionado!',
+        icon: 'warning',
+        confirmButtonText: 'Ok',
+      });
+    }else if(!this.vendaProduto.quantidade || !this.vendaProduto.produto){
+      Swal.fire({
+        title: 'Produto ou quantidade inválida!',
+        icon: 'warning',
+        confirmButtonText: 'Ok',
+      });
+    }else{
+      this.venda.vendaProdutos.push(this.vendaProduto);
+      this.venda.valorTotal = this.calcularValorTotalVenda();
+    }
+    this.fecharModal();
+  }
+
+  calcularValorTotalVenda():number{
+     const valorTotalVenda = this.venda.vendaProdutos.reduce((valorTotal, vp) => {
+        if (vp.produto && vp.produto.valorUnitario != null && vp.quantidade != null) {
+          return valorTotal + (vp.produto.valorUnitario * vp.quantidade);
+        }
+        return valorTotal;
+     },0)
+     return valorTotalVenda;
+  }
 
   excluirVendaProduto(vendaProduto: VendaProduto){
-
+    Swal.fire({
+      title: 'Tem certeza que deseja excluir este registro?',
+      icon: 'warning',
+      showConfirmButton: true,
+      showDenyButton: true,
+      confirmButtonText: 'Sim',
+      cancelButtonText: 'Não',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.venda.vendaProdutos = this.venda.vendaProdutos.filter(vp => vp.produto?.id !== vendaProduto.produto?.id);
+        this.venda.valorTotal = this.calcularValorTotalVenda();
+      }
+    });
   }
 
   listarProdutos(){
@@ -146,18 +189,26 @@ export class VendasdetailsComponent {
     this.venda.valorTotal = parseFloat(valor.toFixed(2)); // Garante duas casas decimais
   }
 
+
   validarCamposVenda(): boolean {
-    let mensagem = ""; // String para armazenar mensagens
+    let mensagem = "";
 
     if (!this.venda.cliente) {
       mensagem += 'Campo cliente inválido!<br><br>';
     }
-   /*if (this.produto.quantidadeDisponivel === null || this.produto.quantidadeDisponivel <= 0) {
-      mensagem += 'Campo quantidade disponível inválido!<br><br>';
+    if (!this.venda.valorTotal) {
+      mensagem += 'Campo valor total inválido!<br><br>';
     }
-    if (this.produto.valorUnitario === null || this.produto.valorUnitario <= 0) {
-      mensagem += 'Campo valor unitário inválido!<br><br>';
-    }*/
+    if (this.venda.vendaProdutos.length === 0) {
+      mensagem += 'Para gerar uma venda e necessario informar ao menos um produto!<br><br>';
+    }
+    if(this.venda.vendaProdutos.some(vp => vp.quantidade === 0)){
+      mensagem += 'Existe produto sem quantidade informada!<br><br>';
+    }
+    if(this.venda.vendaProdutos.some(vp => vp.produto?.quantidadeDisponivel === 0)){
+      mensagem += 'Existe produto com a quantidade informada, maior que o saldo disponivel para venda!<br><br>';
+    }
+
 
     if (mensagem) {
 
