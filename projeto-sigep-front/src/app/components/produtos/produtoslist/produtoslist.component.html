@@ -6,7 +6,7 @@
         <div class="card-body">
           <h3>Listagem de Produtos</h3>
           <div class="direita">
-            <button type="button" class="btn btn-primary" mdbRipple routerLink="/admin/produtos/criar" >
+            <button type="button" class="btn btn-primary btn-sm" mdbRipple routerLink="/admin/produtos/criar" >
               Novo Produto
             </button>
           </div>
@@ -29,10 +29,10 @@
                     <td>{{produto.descricao}}</td>
                     <td>{{produto.quantidadeDisponivel}}</td>
                     <td class="centro">
-                      <button type="button" class="btn btn-primary me-2" mdbRipple routerLink="/admin/produtos/alterar/{{produto.id}}" >
+                      <button type="button" class="btn btn-primary me-2 btn-sm" mdbRipple routerLink="/admin/produtos/alterar/{{produto.id}}" >
                         Alterar
                       </button>
-                      <button type="button" class="btn btn-danger" mdbRipple (click)="excluir(produto)">
+                      <button type="button" class="btn btn-danger btn-sm" mdbRipple (click)="excluir(produto)">
                         Excluir
                       </button>
                     </td>

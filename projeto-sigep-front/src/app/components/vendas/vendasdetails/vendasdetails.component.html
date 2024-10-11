@@ -1,5 +1,4 @@
 <br/>
-<app-vendasprodutosdetails (vendaProdutoSelecionado)="vendaProdutoSelecionado($event)" ></app-vendasprodutosdetails>
 <div class="container">
   <div class="row">
     <div class="col-lg-2"></div>
@@ -8,26 +7,35 @@
         <div class="card-body">
           <h3>Detalhes da Venda</h3>
           <br>
-          <mdb-form-control>
-            <input mdbInput type="text" id="id" class="form-control" [(ngModel)]="venda.id" [readonly]="true"/>
-            <label mdbLabel class="form-label" for="id">Id</label>
-          </mdb-form-control>
-          <br>
-          <mdb-form-control>
-            <input mdbInput type="text" id="cliente" class="form-control" [(ngModel)]="venda.cliente" />
-            <label mdbLabel class="form-label" for="cliente">Nome do Cliente</label>
-          </mdb-form-control>
-          <br>
-          <mdb-form-control>
-            <input mdbInput type="number" id="valorTotal" class="form-control" [(ngModel)]="venda.valorTotal" [readonly]="true" (ngModelChange)="formatarValor($event)" />
-            <label mdbLabel class="form-label" for="valorTotal">Valor Total</label>
-          </mdb-form-control>
+          <div class="row">
+            <div class="col-2">
+              <mdb-form-control>
+                <input mdbInput type="text" id="id" class="form-control" [(ngModel)]="venda.id" [readonly]="true"/>
+                <label mdbLabel class="form-label" for="id">Id</label>
+              </mdb-form-control>
+            </div>
+            <div class="col-7">
+              <mdb-form-control>
+                <input mdbInput type="text" id="cliente" class="form-control" [(ngModel)]="venda.cliente" />
+                <label mdbLabel class="form-label" for="cliente">Nome do Cliente</label>
+              </mdb-form-control>
+            </div>
+            <div class="col-3">
+              <mdb-form-control>
+                <input mdbInput type="number" id="valorTotal" class="form-control" [(ngModel)]="venda.valorTotal" [readonly]="true" (ngModelChange)="formatarValor($event)" />
+                <label mdbLabel class="form-label" for="valorTotal">Valor Total</label>
+              </mdb-form-control>
+            </div>
+          </div>
           <br>
           <div class="centro">
             <h5>Itens</h5>
           </div>
-          <br>
-          <button type="button" class="btn btn-primary" mdbRipple  (click)="abrirModal()" >
+
+
+
+
+          <button type="button" class="btn btn-primary btn-sm" mdbRipple  (click)="abrirModal()" >
             Novo Item
           </button>
           <br>
@@ -49,7 +57,7 @@
                   <td>{{vendaProduto.produto?.valorUnitario | currency:'BRL':'symbol':'1.2-2'}}</td>
                   <td>{{vendaProduto.quantidade}}</td>
                   <td class="centro">
-                    <button type="button" class="btn btn-danger" mdbRipple (click)="excluirVendaProduto(vendaProduto)">
+                    <button type="button" class="btn btn-danger btn-sm" mdbRipple (click)="excluirVendaProduto(vendaProduto)">
                       Excluir
                     </button>
                   </td>
@@ -58,22 +66,13 @@
             </tbody>
         </table>
         <br>
-        <br>
-
-
-
-
-
-
-
-
-          <button type="button" class="btn btn-primary me-2" mdbRipple  (click)="criar()" *ngIf="venda.id == null || venda.id == 0" >
+          <button type="button" class="btn btn-primary me-2 btn-sm" mdbRipple  (click)="criar()" *ngIf="venda.id == null || venda.id == 0" >
             Gravar
           </button>
-          <button type="button" class="btn btn-primary me-2" mdbRipple  (click)="alterar()" *ngIf="venda.id > 0" >
+          <button type="button" class="btn btn-primary me-2 btn-sm" mdbRipple  (click)="alterar()" *ngIf="venda.id > 0" >
             Alterar
           </button>
-          <button type="button" class="btn btn-primary" mdbRipple routerLink="/admin/vendas" >
+          <button type="button" class="btn btn-primary btn-sm" mdbRipple routerLink="/admin/vendas" >
             Voltar
           </button>
         </div>
@@ -82,3 +81,34 @@
     </div>
   </div>
 </div>
+
+
+<!--Modal de Itens (VendaProduto)-->
+<ng-template #modalVendaProduto>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Selecione o produto</h5>
+  </div>
+  <div class="modal-body">
+    <select [(ngModel)]="vendaProduto.produto">
+      <option value="" disabled selected>Selecione um produto</option>
+      <option *ngFor="let produto of produtos" [ngValue]="produto">
+        {{ produto.nome }}
+      </option>
+    </select>
+    <br>
+    <br>
+    <mdb-form-control>
+      <input mdbInput type="number" id="quantidade" class="form-control" [(ngModel)]="vendaProduto.quantidade"  />
+      <label mdbLabel class="form-label" for="quantidade">Quantidade</label>
+    </mdb-form-control>
+    <br>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary me-2 btn-sm" mdbRipple (click)="adicionarVendaProduto()">
+      Confirmar
+    </button>
+    <button type="button" class="btn btn-primary btn-sm" mdbRipple (click)="modalRef.close()" >
+      Fechar
+    </button>
+  </div>
+  </ng-template>

@@ -6,7 +6,7 @@
         <div class="card-body">
           <h3>Listagem de Vendas</h3>
           <div class="direita">
-            <button type="button" class="btn btn-primary" mdbRipple routerLink="/admin/vendas/criar" >
+            <button type="button" class="btn btn-primary btn-sm" mdbRipple routerLink="/admin/vendas/criar" >
               Nova Venda
             </button>
           </div>
@@ -27,10 +27,10 @@
                     <td>{{venda.cliente}}</td>
                     <td>{{venda.valorTotal | currency:'BRL':'symbol':'1.2-2'}}</td>
                     <td class="centro">
-                      <button type="button" class="btn btn-primary me-2" mdbRipple routerLink="/admin/vendas/alterar/{{venda.id}}" >
+                      <button type="button" class="btn btn-primary me-2 btn-sm" mdbRipple routerLink="/admin/vendas/alterar/{{venda.id}}" >
                         Alterar
                       </button>
-                      <button type="button" class="btn btn-danger" mdbRipple (click)="excluir(venda)">
+                      <button type="button" class="btn btn-danger btn-sm" mdbRipple (click)="excluir(venda)">
                         Excluir
                       </button>
                     </td>
