@@ -1,1 +1,84 @@
-<p>vendasdetails works!</p>
+<br/>
+<app-vendasprodutosdetails (vendaProdutoSelecionado)="vendaProdutoSelecionado($event)" ></app-vendasprodutosdetails>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
+          <h3>Detalhes da Venda</h3>
+          <br>
+          <mdb-form-control>
+            <input mdbInput type="text" id="id" class="form-control" [(ngModel)]="venda.id" [readonly]="true"/>
+            <label mdbLabel class="form-label" for="id">Id</label>
+          </mdb-form-control>
+          <br>
+          <mdb-form-control>
+            <input mdbInput type="text" id="cliente" class="form-control" [(ngModel)]="venda.cliente" />
+            <label mdbLabel class="form-label" for="cliente">Nome do Cliente</label>
+          </mdb-form-control>
+          <br>
+          <mdb-form-control>
+            <input mdbInput type="number" id="valorTotal" class="form-control" [(ngModel)]="venda.valorTotal" [readonly]="true" (ngModelChange)="formatarValor($event)" />
+            <label mdbLabel class="form-label" for="valorTotal">Valor Total</label>
+          </mdb-form-control>
+          <br>
+          <div class="centro">
+            <h5>Itens</h5>
+          </div>
+          <br>
+          <button type="button" class="btn btn-primary" mdbRipple  (click)="abrirModal()" >
+            Novo Item
+          </button>
+          <br>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Valor Unitário</th>
+                <th>Quantidade</th>
+                <th class="centro">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (vendaProduto of venda.vendaProdutos; track $index) {
+                <tr>
+                  <td>{{vendaProduto.produto?.id}}</td>
+                  <td>{{vendaProduto.produto?.nome}}</td>
+                  <td>{{vendaProduto.produto?.valorUnitario | currency:'BRL':'symbol':'1.2-2'}}</td>
+                  <td>{{vendaProduto.quantidade}}</td>
+                  <td class="centro">
+                    <button type="button" class="btn btn-danger" mdbRipple (click)="excluirVendaProduto(vendaProduto)">
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+        </table>
+        <br>
+        <br>
+
+
+
+
+
+
+
+
+          <button type="button" class="btn btn-primary me-2" mdbRipple  (click)="criar()" *ngIf="venda.id == null || venda.id == 0" >
+            Gravar
+          </button>
+          <button type="button" class="btn btn-primary me-2" mdbRipple  (click)="alterar()" *ngIf="venda.id > 0" >
+            Alterar
+          </button>
+          <button type="button" class="btn btn-primary" mdbRipple routerLink="/admin/vendas" >
+            Voltar
+          </button>
+        </div>
+      </div>
+      <div class="col-lg-2"></div>
+    </div>
+  </div>
+</div>

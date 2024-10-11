@@ -1,1 +1,45 @@
-<p>vendaslist works!</p>
+<br/>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h3>Listagem de Vendas</h3>
+          <div class="direita">
+            <button type="button" class="btn btn-primary" mdbRipple routerLink="/admin/vendas/criar" >
+              Nova Venda
+            </button>
+          </div>
+          <br/>
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Cliente</th>
+                  <th>Valor Total</th>
+                  <th class="centro">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (venda of vendas; track $index) {
+                  <tr>
+                    <td>{{venda.id}}</td>
+                    <td>{{venda.cliente}}</td>
+                    <td>{{venda.valorTotal | currency:'BRL':'symbol':'1.2-2'}}</td>
+                    <td class="centro">
+                      <button type="button" class="btn btn-primary me-2" mdbRipple routerLink="/admin/vendas/alterar/{{venda.id}}" >
+                        Alterar
+                      </button>
+                      <button type="button" class="btn btn-danger" mdbRipple (click)="excluir(venda)">
+                        Excluir
+                      </button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

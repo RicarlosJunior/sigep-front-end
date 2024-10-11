@@ -7,8 +7,7 @@ import { VendaslistComponent } from './components/vendas/vendaslist/vendaslist.c
 
 
 export const routes: Routes = [
-  {path: "", redirectTo:"principal", pathMatch:'full'},
-  {path: "principal", component: PrincipalComponent},
+  {path: "", redirectTo:"admin", pathMatch:'full'},
   {path: "admin", component: PrincipalComponent, children :[
     {path: "produtos", component: ProdutoslistComponent},
     {path: "produtos/criar", component: ProdutosdetailsComponent},

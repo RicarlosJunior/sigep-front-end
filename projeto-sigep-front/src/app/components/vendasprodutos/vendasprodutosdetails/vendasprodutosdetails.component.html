@@ -1,0 +1,34 @@
+<div class="container" id="produtoVendaModal">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
+          <h3>Detalhes da Venda</h3>
+          <br>
+
+          <select [(ngModel)]="vendaProduto.produto" (change)="onProductChange()">
+            <option value="" disabled selected>Selecione um produto</option>
+            <option *ngFor="let produto of produtos" [ngValue]="produto">
+              {{ produto.nome }}
+            </option>
+          </select>
+
+          <mdb-form-control>
+            <input mdbInput type="number" id="quantidade" class="form-control" [(ngModel)]="vendaProduto.quantidade"  />
+            <label mdbLabel class="form-label" for="quantidade">Quantidade</label>
+          </mdb-form-control>
+          <br>
+
+          <button type="button" class="btn btn-primary me-2" mdbRipple (click)="confirmar()">
+            Confirmar
+          </button>
+          <button type="button" class="btn btn-primary" mdbRipple routerLink="/admin/vendas" >
+            Voltar
+          </button>
+        </div>
+      </div>
+      <div class="col-lg-2"></div>
+    </div>
+  </div>
+</div>
