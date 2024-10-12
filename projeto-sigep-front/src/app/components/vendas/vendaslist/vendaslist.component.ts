@@ -29,8 +29,9 @@ export class VendaslistComponent {
       },
       error: erro => {
         Swal.fire({
-          title: 'Ocorreu um erro inesperado.',
+          title: 'Atenção',
           icon: 'error',
+          text: 'Ocorreu um erro inesperado.',
           confirmButtonText: 'Ok',
         });
       }
@@ -44,14 +45,15 @@ export class VendaslistComponent {
       showConfirmButton: true,
       showDenyButton: true,
       confirmButtonText: 'Sim',
-      cancelButtonText: 'Não',
+      denyButtonText: 'Não',
     }).then((result) => {
       if (result.isConfirmed) {
         this.vendasService.excluir(venda.id).subscribe({
           next: mensagem => {
             Swal.fire({
-              title: mensagem,
+              title: 'Sucesso',
               icon: 'success',
+              text: mensagem,
               confirmButtonText: 'Ok',
             });
             this.listar();
@@ -59,8 +61,9 @@ export class VendaslistComponent {
           error: erro => {
             const errorMessage = erro.error || 'Ocorreu um erro inesperado.';
             Swal.fire({
-              title: errorMessage,
+              title: 'Atenção',
               icon: 'error',
+              text: errorMessage,
               confirmButtonText: 'Ok',
             });
           }

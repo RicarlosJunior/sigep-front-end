@@ -34,8 +34,9 @@ constructor(){
     this.produtosService.criar(this.produto).subscribe({
       next: produto => {
         Swal.fire({
-          title: "Produto cadastrado com sucesso!",
+          title: "Sucesso",
           icon: 'success',
+          text: "Produto cadastrado com sucesso!",
           confirmButtonText: 'Ok',
         });
         this.routerNavegacao.navigate(['admin/produtos'], { state: { produtoNovo: this.produto } });
@@ -43,9 +44,10 @@ constructor(){
       error: erro => {
         const errorMessage = erro.error || 'Ocorreu um erro inesperado.';
         Swal.fire({
-          title: errorMessage,
-          icon: 'error',
-          confirmButtonText: 'Ok',
+          title: 'Atenção',
+            icon: 'error',
+            text: errorMessage,
+            confirmButtonText: 'Ok',
         });
       }
     });
@@ -58,8 +60,9 @@ constructor(){
     this.produtosService.alterar(this.produto.id, this.produto).subscribe({
       next: produto => {
         Swal.fire({
-          title: "Produto alterado com sucesso!",
+          title: "Sucesso",
           icon: 'success',
+          text: "Produto alterado com sucesso!",
           confirmButtonText: 'Ok',
         });
         this.routerNavegacao.navigate(['admin/produtos'], { state: { produtoEditado: this.produto } });
@@ -67,9 +70,10 @@ constructor(){
       error: erro => {
         const errorMessage = erro.error || 'Ocorreu um erro inesperado.';
         Swal.fire({
-          title: errorMessage,
-          icon: 'error',
-          confirmButtonText: 'Ok',
+          title: 'Atenção',
+            icon: 'error',
+            text: errorMessage,
+            confirmButtonText: 'Ok',
         });
       }
     });
@@ -84,8 +88,9 @@ constructor(){
     error: erro => {
       const errorMessage = erro.error || 'Ocorreu um erro inesperado.';
       Swal.fire({
-        title: errorMessage,
+        title: 'Atenção',
         icon: 'error',
+        text: errorMessage,
         confirmButtonText: 'Ok',
       });
     }
@@ -112,7 +117,7 @@ validarCamposProduto(): boolean {
   if (mensagem) {
     Swal.fire({
       title: 'Erros de Validação',
-      html: `<div style="text-align: left;">${mensagem}</div>`,
+      html: `<div style="text-align: center;">${mensagem}</div>`,
       icon: 'error',
       confirmButtonText: 'Ok',
     });

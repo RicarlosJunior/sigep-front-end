@@ -63,14 +63,16 @@ export class VendasdetailsComponent {
     const produtoJaAdicionado = this.venda.vendaProdutos.some(vp => vp.produto?.id === this.vendaProduto.produto?.id);
     if(produtoJaAdicionado){
       Swal.fire({
-        title: 'Produto já adicionado!',
-        icon: 'warning',
+        title: 'Atenção!',
+        icon: 'error',
+        text: 'Produto já adicionado!',
         confirmButtonText: 'Ok',
       });
     }else if(!this.vendaProduto.quantidade || !this.vendaProduto.produto){
       Swal.fire({
-        title: 'Produto ou quantidade inválida!',
-        icon: 'warning',
+        title: 'Atenção',
+        icon: 'error',
+        text: 'Produto ou quantidade inválida!',
         confirmButtonText: 'Ok',
       });
     }else{
@@ -97,7 +99,7 @@ export class VendasdetailsComponent {
       showConfirmButton: true,
       showDenyButton: true,
       confirmButtonText: 'Sim',
-      cancelButtonText: 'Não',
+      denyButtonText: 'Não',
     }).then((result) => {
       if (result.isConfirmed) {
         this.venda.vendaProdutos = this.venda.vendaProdutos.filter(vp => vp.produto?.id !== vendaProduto.produto?.id);
@@ -113,8 +115,9 @@ export class VendasdetailsComponent {
       },
       error: erro => {
         Swal.fire({
-          title: 'Ocorreu um erro inesperado.',
+          title: 'Atenção',
           icon: 'error',
+          text: 'Ocorreu um erro inesperado.',
           confirmButtonText: 'Ok',
         });
       }
@@ -126,8 +129,9 @@ export class VendasdetailsComponent {
       this.vendasService.criar(this.venda).subscribe({
         next: venda => {
           Swal.fire({
-            title: "Venda realizada com sucesso!",
+            title: "Sucesso",
             icon: 'success',
+            text: 'Venda realizada com sucesso!',
             confirmButtonText: 'Ok',
           });
           this.routerNavegacao.navigate(['admin/vendas'], { state: { vendaNova: this.venda } });
@@ -135,8 +139,9 @@ export class VendasdetailsComponent {
         error: erro => {
           const errorMessage = erro.error || 'Ocorreu um erro inesperado.';
           Swal.fire({
-            title: errorMessage,
+            title: 'Atenção',
             icon: 'error',
+            text: errorMessage,
             confirmButtonText: 'Ok',
           });
         }
@@ -150,8 +155,9 @@ export class VendasdetailsComponent {
       this.vendasService.alterar(this.venda.id, this.venda).subscribe({
         next: venda => {
           Swal.fire({
-            title: "Venda alterado com sucesso!",
+            title: "Sucesso",
             icon: 'success',
+            text: "Venda alterado com sucesso!",
             confirmButtonText: 'Ok',
           });
           this.routerNavegacao.navigate(['admin/vendas'], { state: { vendaEditada: this.venda } });
@@ -159,8 +165,9 @@ export class VendasdetailsComponent {
         error: erro => {
           const errorMessage = erro.error || 'Ocorreu um erro inesperado.';
           Swal.fire({
-            title: errorMessage,
+            title: 'Atenção',
             icon: 'error',
+            text: errorMessage,
             confirmButtonText: 'Ok',
           });
         }
@@ -176,8 +183,9 @@ export class VendasdetailsComponent {
       error: erro => {
         const errorMessage = erro.error || 'Ocorreu um erro inesperado.';
         Swal.fire({
-          title: errorMessage,
+          title: 'Atenção',
           icon: 'error',
+          text: errorMessage,
           confirmButtonText: 'Ok',
         });
       }
@@ -216,7 +224,7 @@ export class VendasdetailsComponent {
     if (mensagem) {
       Swal.fire({
         title: 'Erros de Validação',
-        html: `<div style="text-align: left;">${mensagem}</div>`,
+        html: `<div style="text-align: center;">${mensagem}</div>`,
         icon: 'error',
         confirmButtonText: 'Ok',
       });
