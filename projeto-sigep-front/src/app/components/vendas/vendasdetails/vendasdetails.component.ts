@@ -1,6 +1,6 @@
 import { VendaProduto } from './../../../models/venda-produto';
 import { VendasService } from './../../../services/vendas.service';
-import { Component, EventEmitter, inject, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { Venda } from '../../../models/venda';
@@ -122,7 +122,6 @@ export class VendasdetailsComponent {
   }
 
    criar(){
-
     if(this.validarCamposVenda()){
       this.vendasService.criar(this.venda).subscribe({
         next: venda => {
@@ -147,7 +146,7 @@ export class VendasdetailsComponent {
 
 
    alterar(){
-    if(this.venda.id > 0){
+    if(this.venda.id > 0 && this.validarCamposVenda()){
       this.vendasService.alterar(this.venda.id, this.venda).subscribe({
         next: venda => {
           Swal.fire({
@@ -186,7 +185,7 @@ export class VendasdetailsComponent {
    }
 
    formatarValor(valor: number) {
-    this.venda.valorTotal = parseFloat(valor.toFixed(2)); // Garante duas casas decimais
+    this.venda.valorTotal = parseFloat(valor.toFixed(2));
   }
 
 
@@ -202,16 +201,19 @@ export class VendasdetailsComponent {
     if (this.venda.vendaProdutos.length === 0) {
       mensagem += 'Para gerar uma venda e necessario informar ao menos um produto!<br><br>';
     }
-    if(this.venda.vendaProdutos.some(vp => vp.quantidade === 0)){
-      mensagem += 'Existe produto sem quantidade informada!<br><br>';
+    if(this.venda.vendaProdutos.some(vp => vp.quantidade != null && vp.quantidade <= 0)){
+      mensagem += 'Existe produto(s) com quantidade informada inválida!<br><br>';
     }
-    if(this.venda.vendaProdutos.some(vp => vp.produto?.quantidadeDisponivel === 0)){
-      mensagem += 'Existe produto com a quantidade informada, maior que o saldo disponivel para venda!<br><br>';
+    if(this.venda.vendaProdutos.some(vp => {
+        if(vp.quantidade != null && vp.produto != null && vp.produto.quantidadeDisponivel != null){
+          return vp.quantidade > vp.produto.quantidadeDisponivel
+        }
+        return false;
+    })){
+      mensagem += 'Existe produto(s) com a quantidade informada, maior que o saldo disponivel para venda!<br><br>';
     }
-
 
     if (mensagem) {
-
       Swal.fire({
         title: 'Erros de Validação',
         html: `<div style="text-align: left;">${mensagem}</div>`,

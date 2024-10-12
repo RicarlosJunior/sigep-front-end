@@ -30,7 +30,6 @@ constructor(){
 }
 
  criar(){
-
   if(this.validarCamposProduto()){
     this.produtosService.criar(this.produto).subscribe({
       next: produto => {
@@ -55,7 +54,7 @@ constructor(){
 
 
  alterar(){
-  if(this.produto.id > 0){
+  if(this.produto.id > 0 && this.validarCamposProduto()){
     this.produtosService.alterar(this.produto.id, this.produto).subscribe({
       next: produto => {
         Swal.fire({
@@ -74,14 +73,7 @@ constructor(){
         });
       }
     });
-
-
-
-
-
   }
-
-
 }
 
  consultar(id: number){
@@ -110,15 +102,14 @@ validarCamposProduto(): boolean {
   if (!this.produto.nome) {
     mensagem += 'Campo nome inválido!<br><br>';
   }
-  if (this.produto.quantidadeDisponivel === null || this.produto.quantidadeDisponivel <= 0) {
+  if (!this.produto.quantidadeDisponivel) {
     mensagem += 'Campo quantidade disponível inválido!<br><br>';
   }
-  if (this.produto.valorUnitario === null || this.produto.valorUnitario <= 0) {
+  if (!this.produto.valorUnitario) {
     mensagem += 'Campo valor unitário inválido!<br><br>';
   }
 
   if (mensagem) {
-
     Swal.fire({
       title: 'Erros de Validação',
       html: `<div style="text-align: left;">${mensagem}</div>`,
@@ -129,7 +120,4 @@ validarCamposProduto(): boolean {
   }
   return true;
 }
-
-
-
 }

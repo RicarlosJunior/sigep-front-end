@@ -94,18 +94,21 @@
     <h5 class="modal-title" id="exampleModalLabel">Selecione um produto</h5>
   </div>
   <div class="modal-body">
-    <select [(ngModel)]="vendaProduto.produto">
-      <option value="">Selecione...</option>
-      <option *ngFor="let produto of produtos" [ngValue]="produto">
-        {{ produto.nome }}
-      </option>
-    </select>
+    <div class="col-12">
+      <select class="form-select" [(ngModel)]="vendaProduto.produto">
+        <option value="">Selecione...</option>
+        <option *ngFor="let produto of produtos" [ngValue]="produto">
+          {{ produto.nome  }} - Qtde disponível: {{ produto.quantidadeDisponivel }}
+        </option>
+      </select>
+    </div>
     <br>
-    <br>
-    <mdb-form-control>
-      <input mdbInput type="number" id="quantidade" class="form-control" [(ngModel)]="vendaProduto.quantidade" min="0" step="1" />
-      <label mdbLabel class="form-label" for="quantidade">Quantidade</label>
-    </mdb-form-control>
+    <div class="col-5">
+      <mdb-form-control>
+        <input mdbInput type="number" id="quantidade" class="form-control" [(ngModel)]="vendaProduto.quantidade" min="0" step="1" />
+        <label mdbLabel class="form-label" for="quantidade">Quantidade</label>
+      </mdb-form-control>
+    </div>
     <br>
   </div>
   <div class="modal-footer">

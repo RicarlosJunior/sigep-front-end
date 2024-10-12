@@ -17,3 +17,16 @@
 body{
   background-color: rgb(226, 226, 226)
 }
+
+.form-select {
+  border: 2px solid #ccc; /* Altera a cor da borda */
+  border-radius: 0.25rem; /* Altera o raio da borda */
+  background-color: #f8f9fa; /* Cor de fundo */
+  padding: 5px; /* Padding interno */
+  transition: border-color 0.3s; /* Transição suave para a cor da borda */
+}
+
+.form-select:focus {
+  border-color: #007bff; /* Cor da borda ao focar */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Sombra ao focar */
+}

@@ -5,7 +5,7 @@
     <div class="col-lg-8">
       <div class="card">
         <div class="card-body">
-          <h3>Cadastro de Produtos</h3>
+          <h3>Detalhes do Produto</h3>
           <br>
           <div class="col-2">
             <mdb-form-control>
@@ -27,7 +27,7 @@
           <div class="row">
             <div class="col-6">
               <mdb-form-control>
-                <input mdbInput type="number" id="quantidadeDisponivel" class="form-control" [(ngModel)]="produto.quantidadeDisponivel" min="0" step="1"/>
+                <input mdbInput type="number" id="quantidadeDisponivel" class="form-control" [(ngModel)]="produto.quantidadeDisponivel" min="0" step="1" pattern="[0-9]"/>
                 <label mdbLabel class="form-label" for="quantidadeDisponivel">Quantidade Disponível</label>
               </mdb-form-control>
             </div>
