@@ -105,7 +105,7 @@
     <br>
     <div class="col-5">
       <mdb-form-control>
-        <input mdbInput type="number" id="quantidade" class="form-control" [(ngModel)]="vendaProduto.quantidade" min="0" step="1" />
+        <input mdbInput type="number" id="quantidade" class="form-control" [(ngModel)]="vendaProduto.quantidade" min="1" (keypress)="validarNumeroInteiro($event)" />
         <label mdbLabel class="form-label" for="quantidade">Quantidade</label>
       </mdb-form-control>
     </div>

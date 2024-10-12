@@ -192,10 +192,14 @@ export class VendasdetailsComponent {
     });
    }
 
-   formatarValor(valor: number) {
-    this.venda.valorTotal = parseFloat(valor.toFixed(2));
-  }
 
+  validarNumeroInteiro(event: KeyboardEvent) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
   validarCamposVenda(): boolean {
     let mensagem = "";

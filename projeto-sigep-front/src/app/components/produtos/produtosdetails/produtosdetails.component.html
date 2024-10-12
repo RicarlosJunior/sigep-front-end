@@ -27,7 +27,7 @@
           <div class="row">
             <div class="col-6">
               <mdb-form-control>
-                <input mdbInput type="number" id="quantidadeDisponivel" class="form-control" [(ngModel)]="produto.quantidadeDisponivel" min="0" step="1" pattern="[0-9]"/>
+                <input mdbInput type="number" id="quantidadeDisponivel" class="form-control" [(ngModel)]="produto.quantidadeDisponivel" min="1" (keypress)="validarNumeroInteiro($event)"/>
                 <label mdbLabel class="form-label" for="quantidadeDisponivel">Quantidade Disponível</label>
               </mdb-form-control>
             </div>

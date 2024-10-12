@@ -97,8 +97,16 @@ constructor(){
   });
  }
 
- formatarValor(valor: number) {
+formatarValor(valor: number) {
   this.produto.valorUnitario = parseFloat(valor.toFixed(2)); // Garante duas casas decimais
+}
+
+validarNumeroInteiro(event: KeyboardEvent) {
+  const pattern = /[0-9]/;
+  const inputChar = String.fromCharCode(event.charCode);
+  if (!pattern.test(inputChar)) {
+    event.preventDefault();
+  }
 }
 
 validarCamposProduto(): boolean {
