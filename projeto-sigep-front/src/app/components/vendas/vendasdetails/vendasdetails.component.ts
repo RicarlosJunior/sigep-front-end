@@ -83,13 +83,13 @@ export class VendasdetailsComponent {
   }
 
   calcularValorTotalVenda():number{
-     const valorTotalVenda = this.venda.vendaProdutos.reduce((valorTotal, vp) => {
+     let valorTotalVenda = this.venda.vendaProdutos.reduce((valorTotal, vp) => {
         if (vp.produto && vp.produto.valorUnitario != null && vp.quantidade != null) {
           return valorTotal + (vp.produto.valorUnitario * vp.quantidade);
         }
         return valorTotal;
-     },0)
-     return valorTotalVenda;
+     },0);
+     return parseFloat(valorTotalVenda.toFixed(2));
   }
 
   excluirVendaProduto(vendaProduto: VendaProduto){
