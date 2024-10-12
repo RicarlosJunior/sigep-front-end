@@ -30,8 +30,8 @@
           <br>
           <div class="centro">
             <h5>Itens</h5>
+            <hr class="hr" />
           </div>
-
           <table class="table table-sm">
             <thead>
               <tr>
@@ -98,7 +98,7 @@
       <select class="form-select" [(ngModel)]="vendaProduto.produto">
         <option value="">Selecione...</option>
         <option *ngFor="let produto of produtos" [ngValue]="produto">
-          {{ produto.nome  }} - Qtde disponível: {{ produto.quantidadeDisponivel }}
+          {{ produto.nome  }}
         </option>
       </select>
     </div>

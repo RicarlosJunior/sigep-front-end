@@ -199,7 +199,7 @@ export class VendasdetailsComponent {
       mensagem += 'Campo valor total inválido!<br><br>';
     }
     if (this.venda.vendaProdutos.length === 0) {
-      mensagem += 'Para gerar uma venda e necessario informar ao menos um produto!<br><br>';
+      mensagem += 'Para gerar/alterar uma venda é necessario informar ao menos um produto!<br><br>';
     }
     if(this.venda.vendaProdutos.some(vp => vp.quantidade != null && vp.quantidade <= 0)){
       mensagem += 'Existe produto(s) com quantidade informada inválida!<br><br>';
