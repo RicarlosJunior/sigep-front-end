@@ -177,7 +177,7 @@ export class VendasdetailsComponent {
           Swal.fire({
             title: "Sucesso",
             icon: 'success',
-            text: "Venda alterado com sucesso!",
+            text: "Venda alterada com sucesso!",
             confirmButtonText: 'Ok',
           });
           this.routerNavegacao.navigate(['admin/vendas'], { state: { vendaEditada: this.venda } });
