@@ -98,7 +98,7 @@
       <select class="form-select" [(ngModel)]="vendaProduto.produto">
         <option value="">Selecione...</option>
         <option *ngFor="let produto of produtos" [ngValue]="produto">
-          {{ produto.nome  }}
+          {{ produto.nome  }} - Qtde disponivel {{ produto.quantidadeDisponivel }}
         </option>
       </select>
     </div>

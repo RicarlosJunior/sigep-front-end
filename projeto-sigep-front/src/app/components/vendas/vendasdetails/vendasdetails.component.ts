@@ -68,13 +68,22 @@ export class VendasdetailsComponent {
         text: 'Produto já adicionado!',
         confirmButtonText: 'Ok',
       });
-    }else if(!this.vendaProduto.quantidade || !this.vendaProduto.produto){
+    }else if(!this.vendaProduto.quantidade ||
+             !this.vendaProduto.produto){
       Swal.fire({
         title: 'Atenção',
         icon: 'error',
         text: 'Produto ou quantidade inválida!',
         confirmButtonText: 'Ok',
       });
+    }else if(this.vendaProduto.produto.quantidadeDisponivel !== null &&
+             this.vendaProduto.quantidade >  this.vendaProduto.produto.quantidadeDisponivel){
+        Swal.fire({
+          title: 'Atenção',
+          icon: 'error',
+          text: `A quantidade informada para o produto: ${this.vendaProduto.produto.nome} é maior que o saldo disponível para venda!`,
+          confirmButtonText: 'Ok',
+        });
     }else{
       this.venda.vendaProdutos.push(this.vendaProduto);
       this.venda.valorTotal = this.calcularValorTotalVenda();
@@ -102,11 +111,22 @@ export class VendasdetailsComponent {
       denyButtonText: 'Não',
     }).then((result) => {
       if (result.isConfirmed) {
+        if(vendaProduto.venda !== null && vendaProduto.venda.id > 0){
+          this.produtos.forEach(produto => {
+            if(produto.id === vendaProduto.produto?.id &&
+               produto.quantidadeDisponivel !== null && vendaProduto.quantidade !== null){
+              produto.quantidadeDisponivel += vendaProduto.quantidade;
+            }
+          });
+        }
         this.venda.vendaProdutos = this.venda.vendaProdutos.filter(vp => vp.produto?.id !== vendaProduto.produto?.id);
         this.venda.valorTotal = this.calcularValorTotalVenda();
       }
     });
   }
+
+
+
 
   listarProdutos(){
     this.produtosService.listar().subscribe({
@@ -216,14 +236,6 @@ export class VendasdetailsComponent {
     if(this.venda.vendaProdutos.some(vp => vp.quantidade != null && vp.quantidade <= 0)){
       mensagem += 'Existe produto(s) com quantidade informada inválida!<br><br>';
     }
-    if(this.venda.vendaProdutos.some(vp => {
-        if(vp.quantidade != null && vp.produto != null && vp.produto.quantidadeDisponivel != null){
-          return vp.quantidade > vp.produto.quantidadeDisponivel
-        }
-        return false;
-    })){
-      mensagem += 'Existe produto(s) com a quantidade informada, maior que o saldo disponivel para venda!<br><br>';
-    }
 
     if (mensagem) {
       Swal.fire({
@@ -236,8 +248,5 @@ export class VendasdetailsComponent {
     }
     return true;
   }
-
-
-
   }
 

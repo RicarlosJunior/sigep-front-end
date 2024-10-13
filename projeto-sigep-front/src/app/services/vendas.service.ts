@@ -74,6 +74,9 @@ export class VendasService {
               quantidadeDisponivel: vp.produto.quantidade_disponivel,
               valorUnitario: vp.produto.valor_unitario,
               },
+            venda: {
+                id: vp.venda.id,
+              },
               quantidade: vp.quantidade,
           }))
       }))
