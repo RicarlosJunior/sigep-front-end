@@ -1,6 +1,4 @@
-# Teste prático SIGEP
-
-- Projeto Front-end
+# Projeto Front-End
 
 ## Tecnologias utilizadas
 
